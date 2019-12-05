@@ -1,0 +1,331 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/28/2019 12:19:42 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="ISVGD0LT0000292"
+  DTS:CreatorName="CSU\CFinnegan"
+  DTS:DTSID="{DA41B3AA-BAB7-4AFE-819F-0B36045104F1}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1900.73"
+  DTS:LocaleID="2057"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="9"
+  DTS:VersionGUID="{3BC9B600-3018-4891-8C18-319793F0441A}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[ISVGD0LT0000292.dbs_dwbi_ca_cf_nthwd_dw]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{40546187-8C58-4ECE-953E-2AE376EA4E61}"
+      DTS:ObjectName="ISVGD0LT0000292.dbs_dwbi_ca_cf_nthwd_dw">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=ISVGD0LT0000292;Initial Catalog=dbs_dwbi_ca_cf_nthwd_dw;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[ISVGD0LT0000292.master]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{C8D622CC-F5E5-47AD-B90F-C4E476C91CE0}"
+      DTS:ObjectName="ISVGD0LT0000292.master">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=ISVGD0LT0000292;Initial Catalog=master;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Cleardown NthWndTrd DW"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{6B74361E-0E47-4B1B-935F-C150ABFCFF87}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Cleardown NthWndTrd DW"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{C8D622CC-F5E5-47AD-B90F-C4E476C91CE0}"
+          SQLTask:SqlStatementSource="/* Ciaran Finnegan &#x9;: Student No. 10524150&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;*/&#xA;/* Data Warehouse Design and Implementation : Northwind Traders CA&#x9;&#x9;&#x9;*/&#xA;&#xA;/* B8IT104 Data Warehousing and Business Intelligence - December 2019&#x9;&#x9;*/&#xA;&#xA;&#xA;/* Switch to data warehouse to clear out dimension and fact tables */&#xA;USE dbs_dwbi_ca_cf_nthwd_dw;  &#xA;GO&#xA;&#xA;&#xA;/************************************************************************************/&#xA;/*                                                                                  */&#xA;/*   The Following SQL will drops all existing objects in the database (cleardown)  */   &#xA;/*   &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;*/&#xA;/*                                                                                  */&#xA;/************************************************************************************/&#xA;&#xA;&#xA;/* Drop all views */&#xA;DECLARE @name VARCHAR(128)&#xA;DECLARE @SQL VARCHAR(254)&#xA;&#xA;SELECT @name = (SELECT TOP 1 [name] FROM sysobjects WHERE [type] = 'V' AND category = 0 ORDER BY [name])&#xA;&#xA;WHILE @name IS NOT NULL&#xA;BEGIN&#xA;    SELECT @SQL = 'DROP VIEW [dbo].[' + RTRIM(@name) +']'&#xA;    EXEC (@SQL)&#xA;    PRINT 'Dropped View: ' + @name&#xA;    SELECT @name = (SELECT TOP 1 [name] FROM sysobjects WHERE [type] = 'V' AND category = 0 AND [name] &gt; @name ORDER BY [name])&#xA;END&#xA;GO&#xA;&#xA;/* Drop all functions */&#xA;DECLARE @name VARCHAR(128)&#xA;DECLARE @SQL VARCHAR(254)&#xA;&#xA;SELECT @name = (SELECT TOP 1 [name] FROM sysobjects WHERE [type] IN (N'FN', N'IF', N'TF', N'FS', N'FT') AND category = 0 ORDER BY [name])&#xA;&#xA;WHILE @name IS NOT NULL&#xA;BEGIN&#xA;    SELECT @SQL = 'DROP FUNCTION [dbo].[' + RTRIM(@name) +']'&#xA;    EXEC (@SQL)&#xA;    PRINT 'Dropped Function: ' + @name&#xA;    SELECT @name = (SELECT TOP 1 [name] FROM sysobjects WHERE [type] IN (N'FN', N'IF', N'TF', N'FS', N'FT') AND category = 0 AND [name] &gt; @name ORDER BY [name])&#xA;END&#xA;GO&#xA;&#xA;/* Drop all Foreign Key constraints */&#xA;DECLARE @name VARCHAR(128)&#xA;DECLARE @constraint VARCHAR(254)&#xA;DECLARE @SQL VARCHAR(254)&#xA;&#xA;SELECT @name = (SELECT TOP 1 TABLE_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE constraint_catalog=DB_NAME() AND CONSTRAINT_TYPE = 'FOREIGN KEY' ORDER BY TABLE_NAME)&#xA;&#xA;WHILE @name is not null&#xA;BEGIN&#xA;    SELECT @constraint = (SELECT TOP 1 CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE constraint_catalog=DB_NAME() AND CONSTRAINT_TYPE = 'FOREIGN KEY' AND TABLE_NAME = @name ORDER BY CONSTRAINT_NAME)&#xA;    WHILE @constraint IS NOT NULL&#xA;    BEGIN&#xA;        SELECT @SQL = 'ALTER TABLE [dbo].[' + RTRIM(@name) +'] DROP CONSTRAINT [' + RTRIM(@constraint) +']'&#xA;        EXEC (@SQL)&#xA;        PRINT 'Dropped FK Constraint: ' + @constraint + ' on ' + @name&#xA;        SELECT @constraint = (SELECT TOP 1 CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE constraint_catalog=DB_NAME() AND CONSTRAINT_TYPE = 'FOREIGN KEY' AND CONSTRAINT_NAME &lt;&gt; @constraint AND TABLE_NAME = @name ORDER BY CONSTRAINT_NAME)&#xA;    END&#xA;SELECT @name = (SELECT TOP 1 TABLE_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE constraint_catalog=DB_NAME() AND CONSTRAINT_TYPE = 'FOREIGN KEY' ORDER BY TABLE_NAME)&#xA;END&#xA;GO&#xA;&#xA;/* Drop all Primary Key constraints */&#xA;DECLARE @name VARCHAR(128)&#xA;DECLARE @constraint VARCHAR(254)&#xA;DECLARE @SQL VARCHAR(254)&#xA;&#xA;SELECT @name = (SELECT TOP 1 TABLE_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE constraint_catalog=DB_NAME() AND CONSTRAINT_TYPE = 'PRIMARY KEY' ORDER BY TABLE_NAME)&#xA;&#xA;WHILE @name IS NOT NULL&#xA;BEGIN&#xA;    SELECT @constraint = (SELECT TOP 1 CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE constraint_catalog=DB_NAME() AND CONSTRAINT_TYPE = 'PRIMARY KEY' AND TABLE_NAME = @name ORDER BY CONSTRAINT_NAME)&#xA;    WHILE @constraint is not null&#xA;    BEGIN&#xA;        SELECT @SQL = 'ALTER TABLE [dbo].[' + RTRIM(@name) +'] DROP CONSTRAINT [' + RTRIM(@constraint)+']'&#xA;        EXEC (@SQL)&#xA;        PRINT 'Dropped PK Constraint: ' + @constraint + ' on ' + @name&#xA;        SELECT @constraint = (SELECT TOP 1 CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE constraint_catalog=DB_NAME() AND CONSTRAINT_TYPE = 'PRIMARY KEY' AND CONSTRAINT_NAME &lt;&gt; @constraint AND TABLE_NAME = @name ORDER BY CONSTRAINT_NAME)&#xA;    END&#xA;SELECT @name = (SELECT TOP 1 TABLE_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE constraint_catalog=DB_NAME() AND CONSTRAINT_TYPE = 'PRIMARY KEY' ORDER BY TABLE_NAME)&#xA;END&#xA;GO&#xA;&#xA;/* Drop all tables */&#xA;DECLARE @name VARCHAR(128)&#xA;DECLARE @SQL VARCHAR(254)&#xA;&#xA;SELECT @name = (SELECT TOP 1 [name] FROM sysobjects WHERE [type] = 'U' AND category = 0 ORDER BY [name])&#xA;&#xA;WHILE @name IS NOT NULL&#xA;BEGIN&#xA;    SELECT @SQL = 'DROP TABLE [dbo].[' + RTRIM(@name) +']'&#xA;    EXEC (@SQL)&#xA;    PRINT 'Dropped Table: ' + @name&#xA;    SELECT @name = (SELECT TOP 1 [name] FROM sysobjects WHERE [type] = 'U' AND category = 0 AND [name] &gt; @name ORDER BY [name])&#xA;END&#xA;GO&#xA;&#xA;/* Drop all procedures */&#xA;DECLARE @name VARCHAR(128)&#xA;DECLARE @SQL VARCHAR(254)&#xA;&#xA;SELECT @name = (SELECT TOP 1 [name] FROM sys.procedures ORDER BY [name])&#xA;&#xA;WHILE @name IS NOT NULL&#xA;BEGIN&#xA;    SELECT @SQL = 'DROP PROCEDURE [dbo].[' + RTRIM(@name) +']'&#xA;    EXEC (@SQL)&#xA;    PRINT 'Dropped Procedure: ' + @name&#xA;    SELECT @name = (SELECT TOP 1 [name] FROM sys.procedures WHERE  [name] &gt; @name ORDER BY [name])&#xA;END&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create CUSTOMER Dimension"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{7cc5a144-37f3-4b17-a143-fb8f8072bf22}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create CUSTOMER Dimension"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{40546187-8C58-4ECE-953E-2AE376EA4E61}"
+          SQLTask:SqlStatementSource="/* Ciaran Finnegan &#x9;: Student No. 10524150&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;*/&#xA;/* Data Warehouse Design and Implementation : Northwind Traders CA&#x9;&#x9;&#x9;*/&#xA;&#xA;/* B8IT104 Data Warehousing and Business Intelligence - December 2019&#x9;&#x9;*/&#xA;&#xA;&#xA;/* SQL to create a data warehouse Dimension table for the Northwind Traders CA */&#xA;&#xA;&#xA;/* Switch to data warehouse to create the Customer dimension table */&#xA;&#xA;&#xA;USE dbs_dwbi_ca_cf_nthwd_dw;  &#xA;&#xA;GO&#xA;&#xA;&#xA;&#xA;&#xA;/*&#x9;------------------------------------------------------  &#x9;*/&#xA;&#xA;/*&#x9;Create the Customer Dimension Table&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;    */&#xA;&#xA;/*&#x9;------------------------------------------------------  &#x9;*/&#xA;&#xA;&#xA;&#xA;&#xA;CREATE TABLE dbo.dw_dimtblCustomer (&#xA;CustomerKey INT IDENTITY(1, 1) PRIMARY KEY, &#xA;CustomerID NCHAR(5) NOT NULL,  &#xA;CustomerName NVARCHAR(40) NOT NULL, &#xA;CustomerCity NVARCHAR(15) NULL,&#xA;CustomerRegion NVARCHAR(15) NULL,&#xA;CustomerCountry NVARCHAR(15) NULL&#xA;)&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create EMPLOYEE Dimension"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{295d27f1-99fc-46d6-941e-a6cd62cf9a3e}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create EMPLOYEE Dimension"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{40546187-8C58-4ECE-953E-2AE376EA4E61}"
+          SQLTask:SqlStatementSource="/* Ciaran Finnegan &#x9;: Student No. 10524150&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;*/&#xA;/* Data Warehouse Design and Implementation : Northwind Traders CA&#x9;&#x9;&#x9;*/&#xA;&#xA;/* B8IT104 Data Warehousing and Business Intelligence - December 2019&#x9;&#x9;*/&#xA;&#xA;&#xA;/* SQL to create a data warehouse Dimension table for the Northwind Traders CA */&#xA;&#xA;&#xA;/* Switch to data warehouse to create the Employee dimension table */&#xA;&#xA;&#xA;USE dbs_dwbi_ca_cf_nthwd_dw;  &#xA;&#xA;GO&#xA;&#xA;&#xA;&#xA;/*&#x9;------------------------------------------------------  &#x9;*/&#xA;&#xA;/*&#x9;Create the Employee Dimension Tables&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;    */&#xA;&#xA;/*&#x9;------------------------------------------------------  &#x9;*/&#xA;&#xA;&#xA;&#xA;&#xA;CREATE TABLE dbo.dw_dimtblEmployee (&#xA;EmployeeKey INT IDENTITY(1, 1) PRIMARY KEY,&#xA;EmployeeID INT NOT NULL,&#xA;EmployeeName NVARCHAR(85) NOT NULL, &#xA;Title NVARCHAR(30) NULL,&#xA;HireDate DATETIME NULL ,&#xA;EmployeeCity NVARCHAR(15) NULL,&#xA;EmployeeRegion NVARCHAR(15) NULL, &#xA;EmployeeCountry NVARCHAR(15) NULL&#xA;)&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create FACT (Sales) Table"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{94ad5e34-4ff3-4193-a37a-954941575140}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create FACT (Sales) Table"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{40546187-8C58-4ECE-953E-2AE376EA4E61}"
+          SQLTask:SqlStatementSource="/* Ciaran Finnegan &#x9;: Student No. 10524150&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;*/&#xA;/* Data Warehouse Design and Implementation : Northwind Traders CA&#x9;&#x9;&#x9;*/&#xA;&#xA;/* B8IT104 Data Warehousing and Business Intelligence - December 2019&#x9;&#x9;*/&#xA;&#xA;&#xA;/* SQL to create the data warehouse Fact tables for the Northwind Traders CA */&#xA;&#xA;&#xA;/* Switch to data warehouse to create the Fact table */&#xA;&#xA;&#xA;USE dbs_dwbi_ca_cf_nthwd_dw;  &#xA;GO&#xA;&#xA;&#xA;&#xA;&#xA;/*&#x9;------------------------------------------------------  &#x9;*/&#xA;&#xA;/*&#x9;Create the Fact Table - to capture Sales measurements&#x9;    */&#xA;&#xA;/*&#x9;------------------------------------------------------  &#x9;*/&#xA;&#xA;&#xA;CREATE TABLE dw_facttblSales (&#xA;FactID INT IDENTITY(1, 1) PRIMARY KEY,&#xA;ProductKey INT NOT NULL,&#xA;CustomerKey INT NOT NULL, &#xA;EmployeeKey INT NOT NULL, &#xA;OrderDateKey INT NOT NULL,&#xA;OrderQuantity SMALLINT NOT NULL CONSTRAINT &quot;SalesFact_Quantity&quot; DEFAULT (1),&#xA;GrossTotal SMALLMONEY NOT NULL CONSTRAINT &quot;SalesFact_GrossTotal&quot; DEFAULT (0),&#xA;DiscountTotal SMALLMONEY NOT NULL CONSTRAINT &quot;SalesFact_Discount&quot; DEFAULT (0),&#xA;NetTotal SMALLMONEY NOT NULL CONSTRAINT &quot;SalesFact_NetTotal&quot; DEFAULT (0),&#xA;DaysToShip INT NULL,&#xA;FOREIGN KEY (ProductKey) REFERENCES dw_dimtblProduct(ProductKey),&#xA;FOREIGN KEY (CustomerKey) REFERENCES dw_dimtblCustomer(CustomerKey),&#xA;FOREIGN KEY (EmployeeKey) REFERENCES dw_dimtblEmployee(EmployeeKey),&#xA;FOREIGN KEY (OrderDateKey) REFERENCES dw_dimtblTimeDate(DateKey),&#xA;)&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create PRODUCT Dimension"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{9E714027-D2C5-4442-84F0-CC97526EF933}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create PRODUCT Dimension"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{40546187-8C58-4ECE-953E-2AE376EA4E61}"
+          SQLTask:SqlStatementSource="/* Ciaran Finnegan &#x9;: Student No. 10524150&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;*/&#xA;/* Data Warehouse Design and Implementation : Northwind Traders CA&#x9;&#x9;&#x9;*/&#xA;&#xA;/* B8IT104 Data Warehousing and Business Intelligence - December 2019&#x9;&#x9;*/&#xA;&#xA;&#xA;/* SQL to create the data warehouse Dimension tables for the Northwind Traders CA */&#xA;&#xA;&#xA;/* Switch to data warehouse to create the dimension and fact tables */&#xA;&#xA;&#xA;USE dbs_dwbi_ca_cf_nthwd_dw;  &#xA;&#xA;GO&#xA;&#xA;&#xA;&#xA;&#xA;/*&#x9;------------------------------------------------------  &#x9;*/&#xA;&#xA;/*&#x9;Create the Product Dimension Table&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;    */&#xA;&#xA;/*&#x9;------------------------------------------------------  &#x9;*/&#xA;&#xA;&#xA;&#xA;CREATE TABLE dbo.dw_dimtblProduct (&#xA;ProductKey INT IDENTITY(1, 1) PRIMARY KEY,&#xA;ProductID INT NOT NULL,  &#xA;ProductName NVARCHAR(40) NOT NULL, &#xA;CategoryName NVARCHAR(15) NOT NULL,&#xA;QuantityPerUnit NVARCHAR(20) NULL,&#xA;UnitPrice SMALLMONEY NULL CONSTRAINT &quot;Products_UnitPrice&quot; DEFAULT (0),&#xA;UnitsInStock SMALLINT NULL CONSTRAINT &quot;Products_UnitsInStock&quot; DEFAULT (0),&#xA;Discontinued BIT NOT NULL&#xA;)&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create TIME Dimension"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{6044ecb2-2dbe-4082-9258-cf0236f934b6}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create TIME Dimension"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{40546187-8C58-4ECE-953E-2AE376EA4E61}"
+          SQLTask:SqlStatementSource="/* Ciaran Finnegan &#x9;: Student No. 10524150&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;*/&#xA;/* Data Warehouse Design and Implementation : Northwind Traders CA&#x9;&#x9;&#x9;*/&#xA;&#xA;/* B8IT104 Data Warehousing and Business Intelligence - December 2019&#x9;&#x9;*/&#xA;&#xA;&#xA;/* SQL to create a data warehouse Dimension table for the Northwind Traders CA */&#xA;&#xA;&#xA;/* Switch to data warehouse to create the Time dimension table */&#xA;&#xA;&#xA;USE dbs_dwbi_ca_cf_nthwd_dw;  &#xA;&#xA;GO&#xA;&#xA;&#xA;&#xA;/*&#x9;------------------------------------------------------  &#x9;*/&#xA;&#xA;/*&#x9;Create the Time Dimension Tables&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;    */&#xA;&#xA;/*&#x9;------------------------------------------------------  &#x9;*/&#xA;&#xA;&#xA;&#xA;CREATE TABLE dbo.dw_dimtblTimeDate (&#xA;DateKey  INT NOT NULL PRIMARY KEY,&#xA;CalendarDate  DATE NOT NULL,&#xA;FullDateDesc VARCHAR(60) NOT NULL,&#xA;DayNumber  INT NOT NULL,&#xA;WeekdayName VARCHAR(15) NOT NULL,&#xA;WeekNumber  INT NOT NULL,&#xA;CalMonthNumber  INT NOT NULL,&#xA;CalMonthName  VARCHAR (15) NOT NULL,&#xA;QuarterNumber  INT NOT NULL,&#xA;YearNumber  INT NOT NULL &#xA;)&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{F82B85C3-B9B5-40DD-AA35-F51AC0ECA6FB}"
+      DTS:From="Package\Cleardown NthWndTrd DW"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Create PRODUCT Dimension" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{B3230852-1674-40B7-A7F3-523F4EA90F61}"
+      DTS:From="Package\Create PRODUCT Dimension"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Create CUSTOMER Dimension" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{13BBAB5C-D424-4270-83D0-3D966E5BA9B4}"
+      DTS:From="Package\Create CUSTOMER Dimension"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Create EMPLOYEE Dimension" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{A1535421-41F5-44BF-8FC1-D9D1282587BC}"
+      DTS:From="Package\Create EMPLOYEE Dimension"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\Create TIME Dimension" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
+      DTS:CreationName=""
+      DTS:DTSID="{B5EBE421-4317-4BFF-9EF6-9D5FB6635BBB}"
+      DTS:From="Package\Create TIME Dimension"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 4"
+      DTS:To="Package\Create FACT (Sales) Table" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="213.6,42.4"
+          Id="Package\Cleardown NthWndTrd DW"
+          TopLeft="93.9999962647758,33.9733336033292" />
+        <NodeLayout
+          Size="217.6,41.6"
+          Id="Package\Create PRODUCT Dimension"
+          TopLeft="93.9999962647758,106.080000843048" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="201.799996264776,76.3733336033292">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29.7066672397189"
+              Start="0,0"
+              End="0,22.2066672397189">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.2066672397189" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="216,41.6"
+          Id="Package\Create CUSTOMER Dimension"
+          TopLeft="94.6666629049515,175.786667256249" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="202.733329584864,147.680000843048">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,28.1066664132012"
+              Start="0,0"
+              End="0,20.6066664132012">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.6066664132012" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="223.2,41.6"
+          Id="Package\Create EMPLOYEE Dimension"
+          TopLeft="95.3333295451272,250.98666866133" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="204.799996225039,217.386667256249">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,33.6000014050803"
+              Start="0,0"
+              End="0,26.1000014050803">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.1000014050803" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="212.8,41.6"
+          Id="Package\Create TIME Dimension"
+          TopLeft="96.6666628254786,339.040002694448" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="204.999996185303,292.58666866133">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,46.4533340331183"
+              Start="0,0"
+              End="0,38.9533340331183">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,38.9533340331183" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="205.6,41.6"
+          Id="Package\Create FACT (Sales) Table"
+          TopLeft="404.666650586659,343.200002727509" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 4]"
+          TopLeft="309.466662825479,361.920002710978">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="95.1999877611802,0"
+              Start="0,0"
+              End="87.6999877611802,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="87.6999877611802,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

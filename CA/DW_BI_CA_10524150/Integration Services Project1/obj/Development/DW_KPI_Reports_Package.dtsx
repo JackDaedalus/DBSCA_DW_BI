@@ -1,0 +1,295 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="12/4/2019 6:03:20 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="ISVGD0LT0000292"
+  DTS:CreatorName="CSU\CFinnegan"
+  DTS:DTSID="{A2C4C6EE-8267-4AA2-9827-0FA7211FF0C2}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1900.73"
+  DTS:LocaleID="2057"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="15"
+  DTS:VersionGUID="{BB8E0569-02B8-447F-BAD3-93F9FD8CF6C6}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[ISVGD0LT0000292.dbs_dwbi_ca_cf_nthwd_dw]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{4006DA52-8F43-4772-8F4B-1101F2F8CA35}"
+      DTS:ObjectName="ISVGD0LT0000292.dbs_dwbi_ca_cf_nthwd_dw">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=ISVGD0LT0000292;Initial Catalog=dbs_dwbi_ca_cf_nthwd_dw;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Calculate KPI for EMPLOYEE VARIANCE FROM SALES AVERAGE"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Calculate KPI for EMPLOYEE VARIANCE FROM SALES AVERAGE"
+      DTS:DTSID="{0EF9E72B-597D-4760-9B26-616B3F1BC1DD}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Calculate KPI for EMPLOYEE VARIANCE FROM SALES AVERAGE"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{4006DA52-8F43-4772-8F4B-1101F2F8CA35}"
+          SQLTask:SqlStatementSource="&#xA;declare @SalesYr int&#xA;declare @EmployNum int&#xA;declare @AvgYearSales Money&#xA;&#xA;&#xA;&#xA;select @SalesYr = 1996&#xA;&#xA;&#xA;WHILE @SalesYr &lt;&gt; 1999&#xA;BEGIN&#xA;&#x9;print 'loop-de-firstloop';&#xA;&#x9;SELECT @AvgYearSales = (SELECT AvgEmpSales FROM tmpAvgSalesByYear WHERE Yr = @SalesYr)&#xA;&#x9;select @EmployNum = 1&#xA;&#xA;&#x9;WHILE @EmployNum &lt;&gt; 10&#xA;&#x9;BEGIN&#xA;&#x9;&#x9;print 'loop-de-2ndloop';&#xA;&#x9;&#x9;Update dw_rpttblEmpSalesDiffFromAvg&#xA;&#x9;&#x9;SET PctDiff = ((NtSalesTot / @AvgYearSales)-1)&#xA;&#x9;&#x9;WHERE empKey = @EmployNum&#xA;&#x9;&#x9;AND Yr = @SalesYr&#xA;&#xA;&#x9;&#x9;SET @EmployNum = @EmployNum + 1&#xA;&#x9;END&#xA;&#xA;&#x9;SET @SalesYr = @SalesYr + 1&#xA;&#x9;&#xA;END;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create KPI Report Tables"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Create KPI Report Tables"
+      DTS:DTSID="{D76232B3-B202-4675-B8ED-09B457A9C39D}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create KPI Report Tables"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{4006DA52-8F43-4772-8F4B-1101F2F8CA35}"
+          SQLTask:SqlStatementSource="/* Ciaran Finnegan &#x9;: Student No. 10524150&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;*/&#xA;/* Data Warehouse Design and Implementation : Northwind Traders CA&#x9;&#x9;&#x9;*/&#xA;&#xA;/* B8IT104 Data Warehousing and Business Intelligence - December 2019&#x9;&#x9;*/&#xA;&#xA;&#xA;/* SQL to create tables used to stored KPI Report data for use in Tableau */&#xA;&#xA;&#xA;/* Switch to data warehouse to create the KPI Report table */&#xA;USE dbs_dwbi_ca_cf_nthwd_dw;  &#xA;GO&#xA;&#xA;&#xA;/*&#x9;------------------------------------------------------  &#x9;*/&#xA;&#xA;/*&#x9;Create the KPI Report Table - to capture Sales report data for use in Tableau Dashboards&#x9;    */&#xA;&#xA;/*&#x9;------------------------------------------------------  &#x9;*/&#xA;&#xA;/*&#xA;DROP TABLE dw_rpttblHalfYearlySales&#xA;*/&#xA;&#xA;&#xA;CREATE TABLE dw_rpttblHalfYearlySales (&#xA;HalfYearSalesID INT IDENTITY(1, 1) PRIMARY KEY,&#xA;YearNumber  INT NOT NULL,&#xA;HalfYearNum  VARCHAR (15) NOT NULL,&#xA;NetTotalAmt MONEY NOT NULL DEFAULT (0),&#xA;GrowthRate FLOAT NOT NULL&#xA;)&#xA;&#xA;&#xA;&#xA;&#xA;CREATE TABLE tmpAvgSalesByYear(&#xA;Yr int,&#xA;AvgEmpSales MONEY&#xA;)&#xA;&#xA;&#xA;CREATE TABLE dw_rpttblEmpSalesDiffFromAvg (&#xA;empKey int,&#xA;EmpName varchar(50),&#xA;Yr int,&#xA;NtSalesTot MONEY,&#xA;PctDiff float&#xA;)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Populate AVERAGE EMPLOYEE SALES PER YEAR KPI Table"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Populate AVERAGE SALE EMPLOYEE KPI Table"
+      DTS:DTSID="{059331BB-DE1B-4960-97DF-112D22CCE860}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Populate AVERAGE EMPLOYEE SALES PER YEAR KPI Table"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{4006DA52-8F43-4772-8F4B-1101F2F8CA35}"
+          SQLTask:SqlStatementSource="/* Ciaran Finnegan &#x9;: Student No. 10524150&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;*/&#xA;/* Data Warehouse Design and Implementation : Northwind Traders CA&#x9;&#x9;&#x9;*/&#xA;&#xA;/* B8IT104 Data Warehousing and Business Intelligence - December 2019&#x9;&#x9;*/&#xA;&#xA;&#xA;/* &#xA;&#x9;SQL to populate Employee Net Sales Average Co KPI Report data for &#xA;&#x9;use in Tableau &#xA;*/&#xA;&#xA;&#xA;/* Switch to data warehouse to create the KPI Report table */&#xA;USE dbs_dwbi_ca_cf_nthwd_dw;  &#xA;GO&#xA;&#xA;delete tmpAvgSalesByYear&#xA;&#xA;delete dw_rpttblEmpSalesDiffFromAvg&#xA;&#xA;INSERT INTO tmpAvgSalesByYear(&#xA;Yr,&#xA;AvgEmpSales&#xA;)&#xA;SELECT Sales_Year, avg(Total) as 'Employee Avg Across all Years' from (&#xA;&#x9;select time.YearNumber as 'Sales_Year', emp.EmployeeKey as 'EmpKey', emp.EmployeeName, sum(NetTotal) as Total&#xA;&#x9;from &#xA;&#x9;dw_facttblSales fact, &#xA;&#x9;dw_dimtblTimeDate time,&#xA;&#x9;dw_dimtblEmployee emp&#xA;&#x9;where fact.OrderDateKey = time.DateKey&#xA;&#x9;and emp.EmployeeKey = fact.EmployeeKey&#xA;&#x9;group by time.YearNumber, emp.EmployeeKey, emp.EmployeeName&#xA;) b&#xA;group by Sales_Year" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Populate EMPLOYEE SALES PER YEAR KPI Table"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Populate EMPLOYEE SALES PER YEAR KPI Table"
+      DTS:DTSID="{3EAA48D7-E674-4094-9AE0-A356FE6367BF}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Populate EMPLOYEE SALES PER YEAR KPI Table"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{4006DA52-8F43-4772-8F4B-1101F2F8CA35}"
+          SQLTask:SqlStatementSource="&#xA;INSERT INTO dw_rpttblEmpSalesDiffFromAvg (&#xA;empKey,&#xA;EmpName,&#xA;Yr,&#xA;NtSalesTot,&#xA;PctDiff&#xA;)&#xA;&#x9;select emp.EmployeeKey as 'EmpKey', emp.EmployeeName, time.YearNumber as 'Year', sum(NetTotal) as Total, 0 as PctDiff&#xA;&#x9;from &#xA;&#x9;dw_facttblSales fact, &#xA;&#x9;dw_dimtblTimeDate time,&#xA;&#x9;dw_dimtblEmployee emp&#xA;&#x9;where fact.OrderDateKey = time.DateKey&#xA;&#x9;and emp.EmployeeKey = fact.EmployeeKey&#xA;&#x9;group by emp.EmployeeKey, emp.EmployeeName, time.YearNumber&#xA;&#x9;order by emp.EmployeeKey&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Populate NET SALES GROWTH KPI Table"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Populate NET SALES GROWTH KPI Table"
+      DTS:DTSID="{D14701A2-E845-4570-8C3A-FF5ED25017B0}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Populate NET SALES GROWTH KPI Table"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{4006DA52-8F43-4772-8F4B-1101F2F8CA35}"
+          SQLTask:SqlStatementSource="/* Ciaran Finnegan &#x9;: Student No. 10524150&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;*/&#xA;/* Data Warehouse Design and Implementation : Northwind Traders CA&#x9;&#x9;&#x9;*/&#xA;&#xA;/* B8IT104 Data Warehousing and Business Intelligence - December 2019&#x9;&#x9;*/&#xA;&#xA;&#xA;/* SQL to populate Net Sales Growth KPI Report data for use in Tableau */&#xA;&#xA;&#xA;/* Switch to data warehouse to create the KPI Report table */&#xA;USE dbs_dwbi_ca_cf_nthwd_dw;  &#xA;GO&#xA;&#xA;/*&#xA;CREATE PROCEDURE dw_spReadHalfYearlyKPIs&#xA;AS&#xA;*/&#xA;&#x9;DECLARE&#xA;&#x9;@1996_H2 MONEY,&#xA;&#x9;@1997_H1 MONEY,&#xA;&#x9;@1997_H2 MONEY&#xA;&#xA;&#xA;&#x9;delete dw_rpttblHalfYearlySales&#xA;&#xA;&#x9;SELECT @1996_H2 = (select sum(NetTotal) from dw_facttblSales fact, dw_dimtblTimeDate time&#xA;&#x9;&#x9;where fact.OrderDateKey = time.DateKey&#xA;&#x9;&#x9;and time.YearNumber = 1996)&#xA;&#xA;&#x9;SELECT @1997_H1 = (select sum(NetTotal) from dw_facttblSales fact, dw_dimtblTimeDate time&#xA;&#x9;&#x9;where fact.OrderDateKey = time.DateKey&#xA;&#x9;&#x9;and time.YearNumber = 1997&#xA;&#x9;&#x9;and time.CalMonthNumber in (1,2,3,4,5,6))&#xA;&#xA;&#x9;SELECT @1997_H2 = (select sum(NetTotal) from dw_facttblSales fact, dw_dimtblTimeDate time&#xA;&#x9;&#x9;where fact.OrderDateKey = time.DateKey&#xA;&#x9;&#x9;and time.YearNumber = 1997&#xA;&#x9;&#x9;and time.CalMonthNumber in (7,8,9,10,11,12))&#xA;&#xA;&#xA;&#x9;INSERT INTO dw_rpttblHalfYearlySales (YearNumber, HalfYearNum, NetTotalAmt, GrowthRate)&#xA;&#x9;VALUES (1996, 'H2', @1996_H2, 0)&#xA;&#x9;INSERT INTO dw_rpttblHalfYearlySales (YearNumber, HalfYearNum, NetTotalAmt, GrowthRate)&#xA;&#x9;VALUES (1997, 'H1', @1997_H1, ((@1997_H1/@1996_H2)-1))&#xA;&#x9;INSERT INTO dw_rpttblHalfYearlySales (YearNumber, HalfYearNum, NetTotalAmt, GrowthRate)&#xA;&#x9;VALUES (1997, 'H2', @1997_H2, ((@1997_H2/@1996_H2)-1))&#xA;&#xA;&#xA;/*&#xA;&#x9;SELECT * FROM dw_rpttblHalfYearlySales&#xA;*/&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{592F566E-DF7E-427A-B6D0-21BDD7337874}"
+      DTS:From="Package\Create KPI Report Tables"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Populate NET SALES GROWTH KPI Table" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{B01F123B-103F-4E6F-A156-B1F03E8E5EFE}"
+      DTS:From="Package\Populate NET SALES GROWTH KPI Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Populate AVERAGE EMPLOYEE SALES PER YEAR KPI Table" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{F229078E-C611-4A54-9AA8-3180652B294A}"
+      DTS:From="Package\Populate AVERAGE EMPLOYEE SALES PER YEAR KPI Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Populate EMPLOYEE SALES PER YEAR KPI Table" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{A585E5EE-AFF8-4EB4-8E8E-C6217C812E99}"
+      DTS:From="Package\Populate EMPLOYEE SALES PER YEAR KPI Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\Calculate KPI for EMPLOYEE VARIANCE FROM SALES AVERAGE" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="278.4,41.6"
+          Id="Package\Create KPI Report Tables"
+          TopLeft="21.3333324856227,73.4933339174059" />
+        <NodeLayout
+          Size="374.4,41.6"
+          Id="Package\Populate AVERAGE EMPLOYEE SALES PER YEAR KPI Table"
+          TopLeft="75.333330339856,196.906668231541" />
+        <NodeLayout
+          Size="279.2,41.6"
+          Id="Package\Populate NET SALES GROWTH KPI Table"
+          TopLeft="351.999986012777,76.26666727278" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="299.733332485623,95.6800005950929">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="52.2666535271546,0"
+              Start="0,0"
+              End="44.7666535271546,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="44.7666535271546,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="491.599986012777,117.86666727278">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-229.066655672921,79.0400009587606"
+              Start="0,0"
+              End="-229.066655672921,71.5400009587606">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.5200004793803" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,35.5200004793803"
+                    Point2="0,39.5200004793803"
+                    Point3="-4,39.5200004793803" />
+                  <mssgle:LineSegment
+                    End="-225.066655672921,39.5200004793803" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-225.066655672921,39.5200004793803"
+                    Point2="-229.066655672921,39.5200004793803"
+                    Point3="-229.066655672921,43.5200004793803" />
+                  <mssgle:LineSegment
+                    End="-229.066655672921,71.5400009587606" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="366.4,41.6"
+          Id="Package\Populate EMPLOYEE SALES PER YEAR KPI Table"
+          TopLeft="77.333330260383,280.106668892754" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="261.533330300119,238.506668231541">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,41.6000006612139"
+              Start="0,0"
+              End="0,34.1000006612139">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.1000006612139" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="396.8,41.6"
+          Id="Package\Calculate KPI for EMPLOYEE VARIANCE FROM SALES AVERAGE"
+          TopLeft="240.666657103433,365.386669570499" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="260.533330260383,321.706668892754">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="178.53332684305,43.6800006777446"
+              Start="0,0"
+              End="178.53332684305,36.1800006777446">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.8400003388723" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17.8400003388723"
+                    Point2="0,21.8400003388723"
+                    Point3="4,21.8400003388723" />
+                  <mssgle:LineSegment
+                    End="174.53332684305,21.8400003388723" />
+                  <mssgle:CubicBezierSegment
+                    Point1="174.53332684305,21.8400003388723"
+                    Point2="178.53332684305,21.8400003388723"
+                    Point3="178.53332684305,25.8400003388723" />
+                  <mssgle:LineSegment
+                    End="178.53332684305,36.1800006777446" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

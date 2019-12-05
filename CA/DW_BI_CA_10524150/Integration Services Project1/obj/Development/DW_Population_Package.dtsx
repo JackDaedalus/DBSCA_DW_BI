@@ -1,0 +1,2816 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/28/2019 3:08:43 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="ISVGD0LT0000292"
+  DTS:CreatorName="CSU\CFinnegan"
+  DTS:DTSID="{E582CFC3-D447-4309-AE70-C425B87BF0B9}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1900.73"
+  DTS:LocaleID="2057"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="20"
+  DTS:VersionGUID="{4149E22D-5483-4E7D-9EA8-AC8E5F653933}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[ISVGD0LT0000292.dbs_dwbi_ca_cf_nthwd_dw]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{79D6D7EE-07E3-412C-8A94-9680FEA6803C}"
+      DTS:ObjectName="ISVGD0LT0000292.dbs_dwbi_ca_cf_nthwd_dw">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=ISVGD0LT0000292;User ID=;Initial Catalog=dbs_dwbi_ca_cf_nthwd_dw;Provider=MSOLEDBSQL.1;Persist Security Info=False;Integrated Security=SSPI;Initial File Name=;Server SPN=;Authentication=;Access Token=;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[ISVGD0LT0000292.Northwind]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{CC4FCEA6-CE6C-43C5-B553-4BAD4C588A5B}"
+      DTS:ObjectName="ISVGD0LT0000292.Northwind">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=ISVGD0LT0000292;User ID=;Initial Catalog=Northwind;Provider=MSOLEDBSQL.1;Persist Security Info=False;Integrated Security=SSPI;Initial File Name=;Server SPN=;Authentication=;Access Token=;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Populate CUSTOMER Dimension"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{F52BDA66-0322-4A3A-8070-950726866891}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Populate CUSTOMER Dimension"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Populate CUSTOMER Dimension\Data Warehouse CUSTOMER Dimension"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Data Warehouse CUSTOMER Dimension"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[dw_dimtblCustomer]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Populate CUSTOMER Dimension\Data Warehouse CUSTOMER Dimension.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[ISVGD0LT0000292.dbs_dwbi_ca_cf_nthwd_dw]"
+                  connectionManagerRefId="Package.ConnectionManagers[ISVGD0LT0000292.dbs_dwbi_ca_cf_nthwd_dw]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Populate CUSTOMER Dimension\Data Warehouse CUSTOMER Dimension.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Populate CUSTOMER Dimension\Data Warehouse CUSTOMER Dimension.Inputs[OLE DB Destination Input].Columns[CustomerID]"
+                      cachedDataType="wstr"
+                      cachedLength="5"
+                      cachedName="CustomerID"
+                      externalMetadataColumnId="Package\Populate CUSTOMER Dimension\Data Warehouse CUSTOMER Dimension.Inputs[OLE DB Destination Input].ExternalColumns[CustomerID]"
+                      lineageId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output].Columns[CustomerID]" />
+                    <inputColumn
+                      refId="Package\Populate CUSTOMER Dimension\Data Warehouse CUSTOMER Dimension.Inputs[OLE DB Destination Input].Columns[CompanyName]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="CompanyName"
+                      externalMetadataColumnId="Package\Populate CUSTOMER Dimension\Data Warehouse CUSTOMER Dimension.Inputs[OLE DB Destination Input].ExternalColumns[CustomerName]"
+                      lineageId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output].Columns[CompanyName]" />
+                    <inputColumn
+                      refId="Package\Populate CUSTOMER Dimension\Data Warehouse CUSTOMER Dimension.Inputs[OLE DB Destination Input].Columns[City]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="City"
+                      externalMetadataColumnId="Package\Populate CUSTOMER Dimension\Data Warehouse CUSTOMER Dimension.Inputs[OLE DB Destination Input].ExternalColumns[CustomerCity]"
+                      lineageId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output].Columns[City]" />
+                    <inputColumn
+                      refId="Package\Populate CUSTOMER Dimension\Data Warehouse CUSTOMER Dimension.Inputs[OLE DB Destination Input].Columns[Region]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="Region"
+                      externalMetadataColumnId="Package\Populate CUSTOMER Dimension\Data Warehouse CUSTOMER Dimension.Inputs[OLE DB Destination Input].ExternalColumns[CustomerRegion]"
+                      lineageId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output].Columns[Region]" />
+                    <inputColumn
+                      refId="Package\Populate CUSTOMER Dimension\Data Warehouse CUSTOMER Dimension.Inputs[OLE DB Destination Input].Columns[Country]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="Country"
+                      externalMetadataColumnId="Package\Populate CUSTOMER Dimension\Data Warehouse CUSTOMER Dimension.Inputs[OLE DB Destination Input].ExternalColumns[CustomerCountry]"
+                      lineageId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output].Columns[Country]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Populate CUSTOMER Dimension\Data Warehouse CUSTOMER Dimension.Inputs[OLE DB Destination Input].ExternalColumns[CustomerKey]"
+                      dataType="i4"
+                      name="CustomerKey" />
+                    <externalMetadataColumn
+                      refId="Package\Populate CUSTOMER Dimension\Data Warehouse CUSTOMER Dimension.Inputs[OLE DB Destination Input].ExternalColumns[CustomerID]"
+                      dataType="wstr"
+                      length="5"
+                      name="CustomerID" />
+                    <externalMetadataColumn
+                      refId="Package\Populate CUSTOMER Dimension\Data Warehouse CUSTOMER Dimension.Inputs[OLE DB Destination Input].ExternalColumns[CustomerName]"
+                      dataType="wstr"
+                      length="40"
+                      name="CustomerName" />
+                    <externalMetadataColumn
+                      refId="Package\Populate CUSTOMER Dimension\Data Warehouse CUSTOMER Dimension.Inputs[OLE DB Destination Input].ExternalColumns[CustomerCity]"
+                      dataType="wstr"
+                      length="15"
+                      name="CustomerCity" />
+                    <externalMetadataColumn
+                      refId="Package\Populate CUSTOMER Dimension\Data Warehouse CUSTOMER Dimension.Inputs[OLE DB Destination Input].ExternalColumns[CustomerRegion]"
+                      dataType="wstr"
+                      length="15"
+                      name="CustomerRegion" />
+                    <externalMetadataColumn
+                      refId="Package\Populate CUSTOMER Dimension\Data Warehouse CUSTOMER Dimension.Inputs[OLE DB Destination Input].ExternalColumns[CustomerCountry]"
+                      dataType="wstr"
+                      length="15"
+                      name="CustomerCountry" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Populate CUSTOMER Dimension\Data Warehouse CUSTOMER Dimension.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Populate CUSTOMER Dimension\Data Warehouse CUSTOMER Dimension.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Populate CUSTOMER Dimension\Data Warehouse CUSTOMER Dimension.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Populate CUSTOMER Dimension\Data Warehouse CUSTOMER Dimension.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Populate CUSTOMER Dimension\Data Warehouse CUSTOMER Dimension.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Populate CUSTOMER Dimension\Data Warehouse CUSTOMER Dimension.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Northwind Traders Customers"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Customers]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[ISVGD0LT0000292.Northwind]"
+                  connectionManagerRefId="Package.ConnectionManagers[ISVGD0LT0000292.Northwind]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output].Columns[CustomerID]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output].ExternalColumns[CustomerID]"
+                      length="5"
+                      lineageId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output].Columns[CustomerID]"
+                      name="CustomerID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output].Columns[CompanyName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output].ExternalColumns[CompanyName]"
+                      length="40"
+                      lineageId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output].Columns[CompanyName]"
+                      name="CompanyName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output].Columns[City]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output].ExternalColumns[City]"
+                      length="15"
+                      lineageId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output].Columns[City]"
+                      name="City"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output].Columns[Region]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output].ExternalColumns[Region]"
+                      length="15"
+                      lineageId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output].Columns[Region]"
+                      name="Region"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output].Columns[Country]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output].ExternalColumns[Country]"
+                      length="15"
+                      lineageId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output].Columns[Country]"
+                      name="Country"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output].ExternalColumns[CustomerID]"
+                      dataType="wstr"
+                      length="5"
+                      name="CustomerID" />
+                    <externalMetadataColumn
+                      refId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output].ExternalColumns[CompanyName]"
+                      dataType="wstr"
+                      length="40"
+                      name="CompanyName" />
+                    <externalMetadataColumn
+                      refId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output].ExternalColumns[ContactName]"
+                      dataType="wstr"
+                      length="30"
+                      name="ContactName" />
+                    <externalMetadataColumn
+                      refId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output].ExternalColumns[ContactTitle]"
+                      dataType="wstr"
+                      length="30"
+                      name="ContactTitle" />
+                    <externalMetadataColumn
+                      refId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output].ExternalColumns[Address]"
+                      dataType="wstr"
+                      length="60"
+                      name="Address" />
+                    <externalMetadataColumn
+                      refId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output].ExternalColumns[City]"
+                      dataType="wstr"
+                      length="15"
+                      name="City" />
+                    <externalMetadataColumn
+                      refId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output].ExternalColumns[Region]"
+                      dataType="wstr"
+                      length="15"
+                      name="Region" />
+                    <externalMetadataColumn
+                      refId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output].ExternalColumns[PostalCode]"
+                      dataType="wstr"
+                      length="10"
+                      name="PostalCode" />
+                    <externalMetadataColumn
+                      refId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output].ExternalColumns[Country]"
+                      dataType="wstr"
+                      length="15"
+                      name="Country" />
+                    <externalMetadataColumn
+                      refId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output].ExternalColumns[Phone]"
+                      dataType="wstr"
+                      length="24"
+                      name="Phone" />
+                    <externalMetadataColumn
+                      refId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output].ExternalColumns[Fax]"
+                      dataType="wstr"
+                      length="24"
+                      name="Fax" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Error Output].Columns[CustomerID]"
+                      dataType="wstr"
+                      length="5"
+                      lineageId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Error Output].Columns[CustomerID]"
+                      name="CustomerID" />
+                    <outputColumn
+                      refId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Error Output].Columns[CompanyName]"
+                      dataType="wstr"
+                      length="40"
+                      lineageId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Error Output].Columns[CompanyName]"
+                      name="CompanyName" />
+                    <outputColumn
+                      refId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Error Output].Columns[City]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Error Output].Columns[City]"
+                      name="City" />
+                    <outputColumn
+                      refId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Error Output].Columns[Region]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Error Output].Columns[Region]"
+                      name="Region" />
+                    <outputColumn
+                      refId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Error Output].Columns[Country]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Error Output].Columns[Country]"
+                      name="Country" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Populate CUSTOMER Dimension.Paths[OLE DB Source Output]"
+              endId="Package\Populate CUSTOMER Dimension\Data Warehouse CUSTOMER Dimension.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Populate CUSTOMER Dimension\Northwind Traders Customers.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Populate EMPLOYEE Dimension"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{799648a9-c625-4ac0-916a-6efc64a3f988}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Populate EMPLOYEE Dimension"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Data Warehouse EMPLOYEE Dimension"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[dw_dimtblEmployee]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[ISVGD0LT0000292.dbs_dwbi_ca_cf_nthwd_dw]"
+                  connectionManagerRefId="Package.ConnectionManagers[ISVGD0LT0000292.dbs_dwbi_ca_cf_nthwd_dw]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension.Inputs[OLE DB Destination Input].Columns[EmployeeID]"
+                      cachedDataType="i4"
+                      cachedName="EmployeeID"
+                      externalMetadataColumnId="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension.Inputs[OLE DB Destination Input].ExternalColumns[EmployeeID]"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].Columns[EmployeeID]" />
+                    <inputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension.Inputs[OLE DB Destination Input].Columns[Title]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="Title"
+                      externalMetadataColumnId="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension.Inputs[OLE DB Destination Input].ExternalColumns[Title]"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].Columns[Title]" />
+                    <inputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension.Inputs[OLE DB Destination Input].Columns[HireDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="HireDate"
+                      externalMetadataColumnId="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension.Inputs[OLE DB Destination Input].ExternalColumns[HireDate]"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].Columns[HireDate]" />
+                    <inputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension.Inputs[OLE DB Destination Input].Columns[City]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="City"
+                      externalMetadataColumnId="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension.Inputs[OLE DB Destination Input].ExternalColumns[EmployeeCity]"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].Columns[City]" />
+                    <inputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension.Inputs[OLE DB Destination Input].Columns[Region]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="Region"
+                      externalMetadataColumnId="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension.Inputs[OLE DB Destination Input].ExternalColumns[EmployeeRegion]"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].Columns[Region]" />
+                    <inputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension.Inputs[OLE DB Destination Input].Columns[Country]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="Country"
+                      externalMetadataColumnId="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension.Inputs[OLE DB Destination Input].ExternalColumns[EmployeeCountry]"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].Columns[Country]" />
+                    <inputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension.Inputs[OLE DB Destination Input].Columns[EmployeeName]"
+                      cachedDataType="wstr"
+                      cachedLength="57"
+                      cachedName="EmployeeName"
+                      externalMetadataColumnId="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension.Inputs[OLE DB Destination Input].ExternalColumns[EmployeeName]"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Derived Column.Outputs[Derived Column Output].Columns[EmployeeName]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension.Inputs[OLE DB Destination Input].ExternalColumns[EmployeeKey]"
+                      dataType="i4"
+                      name="EmployeeKey" />
+                    <externalMetadataColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension.Inputs[OLE DB Destination Input].ExternalColumns[EmployeeID]"
+                      dataType="i4"
+                      name="EmployeeID" />
+                    <externalMetadataColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension.Inputs[OLE DB Destination Input].ExternalColumns[EmployeeName]"
+                      dataType="wstr"
+                      length="85"
+                      name="EmployeeName" />
+                    <externalMetadataColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension.Inputs[OLE DB Destination Input].ExternalColumns[Title]"
+                      dataType="wstr"
+                      length="30"
+                      name="Title" />
+                    <externalMetadataColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension.Inputs[OLE DB Destination Input].ExternalColumns[HireDate]"
+                      dataType="dbTimeStamp"
+                      name="HireDate" />
+                    <externalMetadataColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension.Inputs[OLE DB Destination Input].ExternalColumns[EmployeeCity]"
+                      dataType="wstr"
+                      length="15"
+                      name="EmployeeCity" />
+                    <externalMetadataColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension.Inputs[OLE DB Destination Input].ExternalColumns[EmployeeRegion]"
+                      dataType="wstr"
+                      length="15"
+                      name="EmployeeRegion" />
+                    <externalMetadataColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension.Inputs[OLE DB Destination Input].ExternalColumns[EmployeeCountry]"
+                      dataType="wstr"
+                      length="15"
+                      name="EmployeeCountry" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Populate EMPLOYEE Dimension\Derived Column"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Populate EMPLOYEE Dimension\Derived Column.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Derived Column.Inputs[Derived Column Input].Columns[TitleOfCourtesy]"
+                      cachedDataType="wstr"
+                      cachedLength="25"
+                      cachedName="TitleOfCourtesy"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].Columns[TitleOfCourtesy]" />
+                    <inputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Derived Column.Inputs[Derived Column Input].Columns[FirstName]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="FirstName"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].Columns[FirstName]" />
+                    <inputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Derived Column.Inputs[Derived Column Input].Columns[LastName]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="LastName"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].Columns[LastName]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Populate EMPLOYEE Dimension\Derived Column.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Populate EMPLOYEE Dimension\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Derived Column.Outputs[Derived Column Output].Columns[EmployeeName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="57"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Derived Column.Outputs[Derived Column Output].Columns[EmployeeName]"
+                      name="EmployeeName"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">#{Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].Columns[TitleOfCourtesy]} + " " + #{Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].Columns[FirstName]} + " " + #{Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].Columns[LastName]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">TitleOfCourtesy + " " + FirstName + " " + LastName</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Populate EMPLOYEE Dimension\Derived Column.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Populate EMPLOYEE Dimension\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Northwind Traders Employees"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Employees]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[ISVGD0LT0000292.Northwind]"
+                  connectionManagerRefId="Package.ConnectionManagers[ISVGD0LT0000292.Northwind]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].Columns[EmployeeID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].ExternalColumns[EmployeeID]"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].Columns[EmployeeID]"
+                      name="EmployeeID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].Columns[TitleOfCourtesy]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].ExternalColumns[TitleOfCourtesy]"
+                      length="25"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].Columns[TitleOfCourtesy]"
+                      name="TitleOfCourtesy"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].Columns[FirstName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].ExternalColumns[FirstName]"
+                      length="10"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].Columns[FirstName]"
+                      name="FirstName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].Columns[LastName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].ExternalColumns[LastName]"
+                      length="20"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].Columns[LastName]"
+                      name="LastName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].Columns[Title]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].ExternalColumns[Title]"
+                      length="30"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].Columns[Title]"
+                      name="Title"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].Columns[HireDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].ExternalColumns[HireDate]"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].Columns[HireDate]"
+                      name="HireDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].Columns[City]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].ExternalColumns[City]"
+                      length="15"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].Columns[City]"
+                      name="City"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].Columns[Region]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].ExternalColumns[Region]"
+                      length="15"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].Columns[Region]"
+                      name="Region"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].Columns[Country]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].ExternalColumns[Country]"
+                      length="15"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].Columns[Country]"
+                      name="Country"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].ExternalColumns[Address]"
+                      dataType="wstr"
+                      length="60"
+                      name="Address" />
+                    <externalMetadataColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].ExternalColumns[City]"
+                      dataType="wstr"
+                      length="15"
+                      name="City" />
+                    <externalMetadataColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].ExternalColumns[Region]"
+                      dataType="wstr"
+                      length="15"
+                      name="Region" />
+                    <externalMetadataColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].ExternalColumns[PostalCode]"
+                      dataType="wstr"
+                      length="10"
+                      name="PostalCode" />
+                    <externalMetadataColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].ExternalColumns[Country]"
+                      dataType="wstr"
+                      length="15"
+                      name="Country" />
+                    <externalMetadataColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].ExternalColumns[EmployeeID]"
+                      dataType="i4"
+                      name="EmployeeID" />
+                    <externalMetadataColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].ExternalColumns[LastName]"
+                      dataType="wstr"
+                      length="20"
+                      name="LastName" />
+                    <externalMetadataColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].ExternalColumns[FirstName]"
+                      dataType="wstr"
+                      length="10"
+                      name="FirstName" />
+                    <externalMetadataColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].ExternalColumns[Title]"
+                      dataType="wstr"
+                      length="30"
+                      name="Title" />
+                    <externalMetadataColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].ExternalColumns[TitleOfCourtesy]"
+                      dataType="wstr"
+                      length="25"
+                      name="TitleOfCourtesy" />
+                    <externalMetadataColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].ExternalColumns[BirthDate]"
+                      dataType="dbTimeStamp"
+                      name="BirthDate" />
+                    <externalMetadataColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].ExternalColumns[HireDate]"
+                      dataType="dbTimeStamp"
+                      name="HireDate" />
+                    <externalMetadataColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].ExternalColumns[HomePhone]"
+                      dataType="wstr"
+                      length="24"
+                      name="HomePhone" />
+                    <externalMetadataColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].ExternalColumns[Extension]"
+                      dataType="wstr"
+                      length="4"
+                      name="Extension" />
+                    <externalMetadataColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].ExternalColumns[Photo]"
+                      dataType="image"
+                      name="Photo" />
+                    <externalMetadataColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].ExternalColumns[Notes]"
+                      dataType="nText"
+                      name="Notes" />
+                    <externalMetadataColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].ExternalColumns[ReportsTo]"
+                      dataType="i4"
+                      name="ReportsTo" />
+                    <externalMetadataColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output].ExternalColumns[PhotoPath]"
+                      dataType="wstr"
+                      length="255"
+                      name="PhotoPath" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Error Output].Columns[EmployeeID]"
+                      dataType="i4"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Error Output].Columns[EmployeeID]"
+                      name="EmployeeID" />
+                    <outputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Error Output].Columns[TitleOfCourtesy]"
+                      dataType="wstr"
+                      length="25"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Error Output].Columns[TitleOfCourtesy]"
+                      name="TitleOfCourtesy" />
+                    <outputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Error Output].Columns[FirstName]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Error Output].Columns[FirstName]"
+                      name="FirstName" />
+                    <outputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Error Output].Columns[LastName]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Error Output].Columns[LastName]"
+                      name="LastName" />
+                    <outputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Error Output].Columns[Title]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Error Output].Columns[Title]"
+                      name="Title" />
+                    <outputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Error Output].Columns[HireDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Error Output].Columns[HireDate]"
+                      name="HireDate" />
+                    <outputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Error Output].Columns[City]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Error Output].Columns[City]"
+                      name="City" />
+                    <outputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Error Output].Columns[Region]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Error Output].Columns[Region]"
+                      name="Region" />
+                    <outputColumn
+                      refId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Error Output].Columns[Country]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Error Output].Columns[Country]"
+                      name="Country" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Populate EMPLOYEE Dimension.Paths[Derived Column Output]"
+              endId="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\Populate EMPLOYEE Dimension\Derived Column.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Populate EMPLOYEE Dimension.Paths[OLE DB Source Output]"
+              endId="Package\Populate EMPLOYEE Dimension\Derived Column.Inputs[Derived Column Input]"
+              name="OLE DB Source Output"
+              startId="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Populate FACT (Sales) Table"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Populate FACT (Sales) Table"
+      DTS:DTSID="{26C217C1-2845-400E-ADFD-9760A8245B62}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Populate FACT (Sales) Table"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{79D6D7EE-07E3-412C-8A94-9680FEA6803C}"
+          SQLTask:SqlStatementSource="INSERT INTO dw_facttblSales&#xA;        (ProductKey&#xA;        ,CustomerKey&#xA;        ,EmployeeKey&#xA;        ,OrderDateKey&#xA;&#x9;&#x9;,OrderQuantity&#xA;&#x9;&#x9;,GrossTotal&#xA;        ,DiscountTotal&#xA;&#x9;&#x9;,NetTotal&#xA;&#x9;&#x9;,DaysToShip&#xA;&#x9;&#x9;)&#xA;SELECT &#x9;&#xA;&#x9; d_prod.ProductKey&#xA;&#x9;,d_cust.CustomerKey &#xA;    ,d_emp.EmployeeKey&#xA;    ,d_date.DateKey&#xA;&#x9;,odb.Quantity&#xA;&#x9;,CONVERT(money,(odb.UnitPrice*odb.Quantity))  AS GrossTotal&#xA;&#x9;,CONVERT(money,(odb.UnitPrice*odb.Quantity*(odb.Discount)/100))*100 AS DiscountTotal&#xA;&#x9;,CONVERT(money,(odb.UnitPrice*odb.Quantity*(1-odb.Discount)/100))*100 AS NetTotal&#xA;&#x9;,DATEDIFF(day,odb.OrderDate,odb.ShippedDate) AS DaysToShip&#xA;&#xA;From (&#xA;&#xA;SELECT  &#xA;&#x9;&#x9;c.CustomerId&#xA;&#x9;&#x9;,p.ProductName&#xA;&#x9;&#x9;,e.EmployeeID&#xA;&#x9;&#x9;,o.OrderDate&#xA;&#x9;&#x9;,o.ShippedDate&#xA;&#x9;&#x9;,od.UnitPrice&#xA;&#x9;&#x9;,od.Quantity&#xA;&#x9;&#x9;,od.Discount&#xA;&#x9;from Northwind.dbo.Products p&#x9;&#xA;&#x9;join Northwind.dbo.[order details] od on p.productid&#x9;= od.productid&#xA;&#x9;join Northwind.dbo.[orders] o&#x9;on o.orderid&#x9;= od.orderid&#xA;&#x9;join Northwind.dbo.Customers c&#x9;on c.customerid&#x9;= o.customerid&#xA;&#x9;join Northwind.dbo.Employees e&#x9;on o.employeeid = e.employeeid&#xA;&#xA; )&#xA;as odb&#xA;    join dw_dimtblCustomer d_cust &#x9;   on d_cust.CustomerID&#x9;&#x9;= odb.CustomerId&#xA;&#x9;join dw_dimtblProduct d_prod       on d_prod.ProductName   &#x9;= odb.ProductName&#xA;&#x9;join dw_dimtblEmployee d_emp       on d_emp.EmployeeID     &#x9;= odb.EmployeeID&#xA;&#x9;join dw_dimtblTimeDate d_date      on d_date.CalendarDate&#x9;= odb.OrderDate&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Populate PRODUCT Dimension"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{EAA837F8-4535-4FF4-B7BF-C186CAB165BA}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Populate PRODUCT Dimension"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Data Warehouse PRODUCT Dimension"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[dw_dimtblProduct]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[ISVGD0LT0000292.dbs_dwbi_ca_cf_nthwd_dw]"
+                  connectionManagerRefId="Package.ConnectionManagers[ISVGD0LT0000292.dbs_dwbi_ca_cf_nthwd_dw]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension.Inputs[OLE DB Destination Input].Columns[ProductID]"
+                      cachedDataType="i4"
+                      cachedName="ProductID"
+                      externalMetadataColumnId="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension.Inputs[OLE DB Destination Input].ExternalColumns[ProductID]"
+                      lineageId="Package\Populate PRODUCT Dimension\Merge Join.Outputs[Merge Join Output].Columns[ProductID]" />
+                    <inputColumn
+                      refId="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension.Inputs[OLE DB Destination Input].Columns[ProductName]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="ProductName"
+                      externalMetadataColumnId="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension.Inputs[OLE DB Destination Input].ExternalColumns[ProductName]"
+                      lineageId="Package\Populate PRODUCT Dimension\Merge Join.Outputs[Merge Join Output].Columns[ProductName]" />
+                    <inputColumn
+                      refId="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension.Inputs[OLE DB Destination Input].Columns[CategoryName]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="CategoryName"
+                      externalMetadataColumnId="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension.Inputs[OLE DB Destination Input].ExternalColumns[CategoryName]"
+                      lineageId="Package\Populate PRODUCT Dimension\Merge Join.Outputs[Merge Join Output].Columns[CategoryName]" />
+                    <inputColumn
+                      refId="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension.Inputs[OLE DB Destination Input].Columns[QuantityPerUnit]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="QuantityPerUnit"
+                      externalMetadataColumnId="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension.Inputs[OLE DB Destination Input].ExternalColumns[QuantityPerUnit]"
+                      lineageId="Package\Populate PRODUCT Dimension\Merge Join.Outputs[Merge Join Output].Columns[QuantityPerUnit]" />
+                    <inputColumn
+                      refId="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension.Inputs[OLE DB Destination Input].Columns[UnitPrice]"
+                      cachedDataType="cy"
+                      cachedName="UnitPrice"
+                      externalMetadataColumnId="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension.Inputs[OLE DB Destination Input].ExternalColumns[UnitPrice]"
+                      lineageId="Package\Populate PRODUCT Dimension\Merge Join.Outputs[Merge Join Output].Columns[UnitPrice]" />
+                    <inputColumn
+                      refId="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension.Inputs[OLE DB Destination Input].Columns[UnitsInStock]"
+                      cachedDataType="i2"
+                      cachedName="UnitsInStock"
+                      externalMetadataColumnId="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension.Inputs[OLE DB Destination Input].ExternalColumns[UnitsInStock]"
+                      lineageId="Package\Populate PRODUCT Dimension\Merge Join.Outputs[Merge Join Output].Columns[UnitsInStock]" />
+                    <inputColumn
+                      refId="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension.Inputs[OLE DB Destination Input].Columns[Discontinued]"
+                      cachedDataType="bool"
+                      cachedName="Discontinued"
+                      externalMetadataColumnId="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension.Inputs[OLE DB Destination Input].ExternalColumns[Discontinued]"
+                      lineageId="Package\Populate PRODUCT Dimension\Merge Join.Outputs[Merge Join Output].Columns[Discontinued]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension.Inputs[OLE DB Destination Input].ExternalColumns[ProductKey]"
+                      dataType="i4"
+                      name="ProductKey" />
+                    <externalMetadataColumn
+                      refId="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension.Inputs[OLE DB Destination Input].ExternalColumns[ProductID]"
+                      dataType="i4"
+                      name="ProductID" />
+                    <externalMetadataColumn
+                      refId="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension.Inputs[OLE DB Destination Input].ExternalColumns[ProductName]"
+                      dataType="wstr"
+                      length="40"
+                      name="ProductName" />
+                    <externalMetadataColumn
+                      refId="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension.Inputs[OLE DB Destination Input].ExternalColumns[CategoryName]"
+                      dataType="wstr"
+                      length="15"
+                      name="CategoryName" />
+                    <externalMetadataColumn
+                      refId="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension.Inputs[OLE DB Destination Input].ExternalColumns[QuantityPerUnit]"
+                      dataType="wstr"
+                      length="20"
+                      name="QuantityPerUnit" />
+                    <externalMetadataColumn
+                      refId="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension.Inputs[OLE DB Destination Input].ExternalColumns[UnitPrice]"
+                      dataType="cy"
+                      name="UnitPrice" />
+                    <externalMetadataColumn
+                      refId="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension.Inputs[OLE DB Destination Input].ExternalColumns[UnitsInStock]"
+                      dataType="i2"
+                      name="UnitsInStock" />
+                    <externalMetadataColumn
+                      refId="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension.Inputs[OLE DB Destination Input].ExternalColumns[Discontinued]"
+                      dataType="bool"
+                      name="Discontinued" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Populate PRODUCT Dimension\Merge Join"
+              componentClassID="Microsoft.MergeJoin"
+              contactInfo="Merge Join;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Combine two sorted data flows into one using the FULL, LEFT, or INNER join. We recommend this transformation when data flows can be sorted at their sources."
+              name="Merge Join"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of join to perform."
+                  name="JoinType"
+                  typeConverter="JoinType">2</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the number of columns in the ordering key."
+                  name="NumKeyColumns">1</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the null values are treated as equal values."
+                  name="TreatNullsAsEqual">true</property>
+                <property
+                  dataType="System.Int32"
+                  description="Indicates the requested maximum buffers per input before blocking."
+                  name="MaxBuffersPerInput">5</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Populate PRODUCT Dimension\Merge Join.Inputs[Merge Join Left Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Left Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Populate PRODUCT Dimension\Merge Join.Inputs[Merge Join Left Input].Columns[CategoryID]"
+                      cachedDataType="i4"
+                      cachedName="CategoryID"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Populate PRODUCT Dimension\Sort.Outputs[Sort Output].Columns[CategoryID]" />
+                    <inputColumn
+                      refId="Package\Populate PRODUCT Dimension\Merge Join.Inputs[Merge Join Left Input].Columns[ProductID]"
+                      cachedDataType="i4"
+                      cachedName="ProductID"
+                      lineageId="Package\Populate PRODUCT Dimension\Sort.Outputs[Sort Output].Columns[ProductID]" />
+                    <inputColumn
+                      refId="Package\Populate PRODUCT Dimension\Merge Join.Inputs[Merge Join Left Input].Columns[ProductName]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="ProductName"
+                      lineageId="Package\Populate PRODUCT Dimension\Sort.Outputs[Sort Output].Columns[ProductName]" />
+                    <inputColumn
+                      refId="Package\Populate PRODUCT Dimension\Merge Join.Inputs[Merge Join Left Input].Columns[QuantityPerUnit]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="QuantityPerUnit"
+                      lineageId="Package\Populate PRODUCT Dimension\Sort.Outputs[Sort Output].Columns[QuantityPerUnit]" />
+                    <inputColumn
+                      refId="Package\Populate PRODUCT Dimension\Merge Join.Inputs[Merge Join Left Input].Columns[UnitPrice]"
+                      cachedDataType="cy"
+                      cachedName="UnitPrice"
+                      lineageId="Package\Populate PRODUCT Dimension\Sort.Outputs[Sort Output].Columns[UnitPrice]" />
+                    <inputColumn
+                      refId="Package\Populate PRODUCT Dimension\Merge Join.Inputs[Merge Join Left Input].Columns[UnitsInStock]"
+                      cachedDataType="i2"
+                      cachedName="UnitsInStock"
+                      lineageId="Package\Populate PRODUCT Dimension\Sort.Outputs[Sort Output].Columns[UnitsInStock]" />
+                    <inputColumn
+                      refId="Package\Populate PRODUCT Dimension\Merge Join.Inputs[Merge Join Left Input].Columns[Discontinued]"
+                      cachedDataType="bool"
+                      cachedName="Discontinued"
+                      lineageId="Package\Populate PRODUCT Dimension\Sort.Outputs[Sort Output].Columns[Discontinued]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\Populate PRODUCT Dimension\Merge Join.Inputs[Merge Join Right Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Right Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Populate PRODUCT Dimension\Merge Join.Inputs[Merge Join Right Input].Columns[CategoryID]"
+                      cachedDataType="i4"
+                      cachedName="CategoryID"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Populate PRODUCT Dimension\Sort 1.Outputs[Sort Output].Columns[CategoryID]" />
+                    <inputColumn
+                      refId="Package\Populate PRODUCT Dimension\Merge Join.Inputs[Merge Join Right Input].Columns[CategoryName]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="CategoryName"
+                      lineageId="Package\Populate PRODUCT Dimension\Sort 1.Outputs[Sort Output].Columns[CategoryName]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Populate PRODUCT Dimension\Merge Join.Outputs[Merge Join Output]"
+                  name="Merge Join Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Merge Join.Outputs[Merge Join Output].Columns[ProductID]"
+                      dataType="i4"
+                      lineageId="Package\Populate PRODUCT Dimension\Merge Join.Outputs[Merge Join Output].Columns[ProductID]"
+                      name="ProductID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Populate PRODUCT Dimension\Merge Join.Inputs[Merge Join Left Input].Columns[ProductID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Merge Join.Outputs[Merge Join Output].Columns[ProductName]"
+                      dataType="wstr"
+                      length="40"
+                      lineageId="Package\Populate PRODUCT Dimension\Merge Join.Outputs[Merge Join Output].Columns[ProductName]"
+                      name="ProductName">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Populate PRODUCT Dimension\Merge Join.Inputs[Merge Join Left Input].Columns[ProductName]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Merge Join.Outputs[Merge Join Output].Columns[CategoryName]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\Populate PRODUCT Dimension\Merge Join.Outputs[Merge Join Output].Columns[CategoryName]"
+                      name="CategoryName">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Populate PRODUCT Dimension\Merge Join.Inputs[Merge Join Right Input].Columns[CategoryName]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Merge Join.Outputs[Merge Join Output].Columns[QuantityPerUnit]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Populate PRODUCT Dimension\Merge Join.Outputs[Merge Join Output].Columns[QuantityPerUnit]"
+                      name="QuantityPerUnit">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Populate PRODUCT Dimension\Merge Join.Inputs[Merge Join Left Input].Columns[QuantityPerUnit]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Merge Join.Outputs[Merge Join Output].Columns[UnitPrice]"
+                      dataType="cy"
+                      lineageId="Package\Populate PRODUCT Dimension\Merge Join.Outputs[Merge Join Output].Columns[UnitPrice]"
+                      name="UnitPrice">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Populate PRODUCT Dimension\Merge Join.Inputs[Merge Join Left Input].Columns[UnitPrice]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Merge Join.Outputs[Merge Join Output].Columns[UnitsInStock]"
+                      dataType="i2"
+                      lineageId="Package\Populate PRODUCT Dimension\Merge Join.Outputs[Merge Join Output].Columns[UnitsInStock]"
+                      name="UnitsInStock">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Populate PRODUCT Dimension\Merge Join.Inputs[Merge Join Left Input].Columns[UnitsInStock]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Merge Join.Outputs[Merge Join Output].Columns[Discontinued]"
+                      dataType="bool"
+                      lineageId="Package\Populate PRODUCT Dimension\Merge Join.Outputs[Merge Join Output].Columns[Discontinued]"
+                      name="Discontinued">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Populate PRODUCT Dimension\Merge Join.Inputs[Merge Join Left Input].Columns[Discontinued]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Populate PRODUCT Dimension\Northwind Traders Product Categories"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Northwind Traders Product Categories"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Categories]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Populate PRODUCT Dimension\Northwind Traders Product Categories.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[ISVGD0LT0000292.Northwind]"
+                  connectionManagerRefId="Package.ConnectionManagers[ISVGD0LT0000292.Northwind]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Populate PRODUCT Dimension\Northwind Traders Product Categories.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Product Categories.Outputs[OLE DB Source Output].Columns[CategoryName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Populate PRODUCT Dimension\Northwind Traders Product Categories.Outputs[OLE DB Source Output].ExternalColumns[CategoryName]"
+                      length="15"
+                      lineageId="Package\Populate PRODUCT Dimension\Northwind Traders Product Categories.Outputs[OLE DB Source Output].Columns[CategoryName]"
+                      name="CategoryName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Product Categories.Outputs[OLE DB Source Output].Columns[CategoryID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Populate PRODUCT Dimension\Northwind Traders Product Categories.Outputs[OLE DB Source Output].ExternalColumns[CategoryID]"
+                      lineageId="Package\Populate PRODUCT Dimension\Northwind Traders Product Categories.Outputs[OLE DB Source Output].Columns[CategoryID]"
+                      name="CategoryID"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Product Categories.Outputs[OLE DB Source Output].ExternalColumns[CategoryID]"
+                      dataType="i4"
+                      name="CategoryID" />
+                    <externalMetadataColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Product Categories.Outputs[OLE DB Source Output].ExternalColumns[CategoryName]"
+                      dataType="wstr"
+                      length="15"
+                      name="CategoryName" />
+                    <externalMetadataColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Product Categories.Outputs[OLE DB Source Output].ExternalColumns[Description]"
+                      dataType="nText"
+                      name="Description" />
+                    <externalMetadataColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Product Categories.Outputs[OLE DB Source Output].ExternalColumns[Picture]"
+                      dataType="image"
+                      name="Picture" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Populate PRODUCT Dimension\Northwind Traders Product Categories.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Product Categories.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Populate PRODUCT Dimension\Northwind Traders Product Categories.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Product Categories.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Populate PRODUCT Dimension\Northwind Traders Product Categories.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Product Categories.Outputs[OLE DB Source Error Output].Columns[CategoryName]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\Populate PRODUCT Dimension\Northwind Traders Product Categories.Outputs[OLE DB Source Error Output].Columns[CategoryName]"
+                      name="CategoryName" />
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Product Categories.Outputs[OLE DB Source Error Output].Columns[CategoryID]"
+                      dataType="i4"
+                      lineageId="Package\Populate PRODUCT Dimension\Northwind Traders Product Categories.Outputs[OLE DB Source Error Output].Columns[CategoryID]"
+                      name="CategoryID" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Populate PRODUCT Dimension\Northwind Traders Products"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Northwind Traders Products"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Products]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[ISVGD0LT0000292.Northwind]"
+                  connectionManagerRefId="Package.ConnectionManagers[ISVGD0LT0000292.Northwind]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].Columns[ProductID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].ExternalColumns[ProductID]"
+                      lineageId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].Columns[ProductID]"
+                      name="ProductID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].Columns[ProductName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].ExternalColumns[ProductName]"
+                      length="40"
+                      lineageId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].Columns[ProductName]"
+                      name="ProductName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].Columns[QuantityPerUnit]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].ExternalColumns[QuantityPerUnit]"
+                      length="20"
+                      lineageId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].Columns[QuantityPerUnit]"
+                      name="QuantityPerUnit"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].Columns[UnitPrice]"
+                      dataType="cy"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].ExternalColumns[UnitPrice]"
+                      lineageId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].Columns[UnitPrice]"
+                      name="UnitPrice"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].Columns[UnitsInStock]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].ExternalColumns[UnitsInStock]"
+                      lineageId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].Columns[UnitsInStock]"
+                      name="UnitsInStock"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].Columns[Discontinued]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].ExternalColumns[Discontinued]"
+                      lineageId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].Columns[Discontinued]"
+                      name="Discontinued"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].Columns[CategoryID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].ExternalColumns[CategoryID]"
+                      lineageId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].Columns[CategoryID]"
+                      name="CategoryID"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].ExternalColumns[ProductID]"
+                      dataType="i4"
+                      name="ProductID" />
+                    <externalMetadataColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].ExternalColumns[ProductName]"
+                      dataType="wstr"
+                      length="40"
+                      name="ProductName" />
+                    <externalMetadataColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].ExternalColumns[SupplierID]"
+                      dataType="i4"
+                      name="SupplierID" />
+                    <externalMetadataColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].ExternalColumns[CategoryID]"
+                      dataType="i4"
+                      name="CategoryID" />
+                    <externalMetadataColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].ExternalColumns[QuantityPerUnit]"
+                      dataType="wstr"
+                      length="20"
+                      name="QuantityPerUnit" />
+                    <externalMetadataColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].ExternalColumns[UnitPrice]"
+                      dataType="cy"
+                      name="UnitPrice" />
+                    <externalMetadataColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].ExternalColumns[UnitsInStock]"
+                      dataType="i2"
+                      name="UnitsInStock" />
+                    <externalMetadataColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].ExternalColumns[UnitsOnOrder]"
+                      dataType="i2"
+                      name="UnitsOnOrder" />
+                    <externalMetadataColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].ExternalColumns[ReorderLevel]"
+                      dataType="i2"
+                      name="ReorderLevel" />
+                    <externalMetadataColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].ExternalColumns[Discontinued]"
+                      dataType="bool"
+                      name="Discontinued" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Error Output].Columns[ProductID]"
+                      dataType="i4"
+                      lineageId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Error Output].Columns[ProductID]"
+                      name="ProductID" />
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Error Output].Columns[ProductName]"
+                      dataType="wstr"
+                      length="40"
+                      lineageId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Error Output].Columns[ProductName]"
+                      name="ProductName" />
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Error Output].Columns[QuantityPerUnit]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Error Output].Columns[QuantityPerUnit]"
+                      name="QuantityPerUnit" />
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Error Output].Columns[UnitPrice]"
+                      dataType="cy"
+                      lineageId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Error Output].Columns[UnitPrice]"
+                      name="UnitPrice" />
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Error Output].Columns[UnitsInStock]"
+                      dataType="i2"
+                      lineageId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Error Output].Columns[UnitsInStock]"
+                      name="UnitsInStock" />
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Error Output].Columns[Discontinued]"
+                      dataType="bool"
+                      lineageId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Error Output].Columns[Discontinued]"
+                      name="Discontinued" />
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Error Output].Columns[CategoryID]"
+                      dataType="i4"
+                      lineageId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Error Output].Columns[CategoryID]"
+                      name="CategoryID" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Populate PRODUCT Dimension\Sort"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Sort"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Populate PRODUCT Dimension\Sort.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Populate PRODUCT Dimension\Sort.Inputs[Sort Input].Columns[ProductID]"
+                      cachedDataType="i4"
+                      cachedName="ProductID"
+                      lineageId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].Columns[ProductID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Populate PRODUCT Dimension\Sort.Inputs[Sort Input].Columns[ProductName]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="ProductName"
+                      lineageId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].Columns[ProductName]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Populate PRODUCT Dimension\Sort.Inputs[Sort Input].Columns[QuantityPerUnit]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="QuantityPerUnit"
+                      lineageId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].Columns[QuantityPerUnit]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Populate PRODUCT Dimension\Sort.Inputs[Sort Input].Columns[UnitPrice]"
+                      cachedDataType="cy"
+                      cachedName="UnitPrice"
+                      lineageId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].Columns[UnitPrice]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Populate PRODUCT Dimension\Sort.Inputs[Sort Input].Columns[UnitsInStock]"
+                      cachedDataType="i2"
+                      cachedName="UnitsInStock"
+                      lineageId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].Columns[UnitsInStock]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Populate PRODUCT Dimension\Sort.Inputs[Sort Input].Columns[Discontinued]"
+                      cachedDataType="bool"
+                      cachedName="Discontinued"
+                      lineageId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].Columns[Discontinued]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Populate PRODUCT Dimension\Sort.Inputs[Sort Input].Columns[CategoryID]"
+                      cachedDataType="i4"
+                      cachedName="CategoryID"
+                      lineageId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].Columns[CategoryID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Populate PRODUCT Dimension\Sort.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Sort.Outputs[Sort Output].Columns[ProductID]"
+                      dataType="i4"
+                      lineageId="Package\Populate PRODUCT Dimension\Sort.Outputs[Sort Output].Columns[ProductID]"
+                      name="ProductID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].Columns[ProductID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Sort.Outputs[Sort Output].Columns[ProductName]"
+                      dataType="wstr"
+                      length="40"
+                      lineageId="Package\Populate PRODUCT Dimension\Sort.Outputs[Sort Output].Columns[ProductName]"
+                      name="ProductName">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].Columns[ProductName]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Sort.Outputs[Sort Output].Columns[QuantityPerUnit]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Populate PRODUCT Dimension\Sort.Outputs[Sort Output].Columns[QuantityPerUnit]"
+                      name="QuantityPerUnit">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].Columns[QuantityPerUnit]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Sort.Outputs[Sort Output].Columns[UnitPrice]"
+                      dataType="cy"
+                      lineageId="Package\Populate PRODUCT Dimension\Sort.Outputs[Sort Output].Columns[UnitPrice]"
+                      name="UnitPrice">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].Columns[UnitPrice]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Sort.Outputs[Sort Output].Columns[UnitsInStock]"
+                      dataType="i2"
+                      lineageId="Package\Populate PRODUCT Dimension\Sort.Outputs[Sort Output].Columns[UnitsInStock]"
+                      name="UnitsInStock">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].Columns[UnitsInStock]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Sort.Outputs[Sort Output].Columns[Discontinued]"
+                      dataType="bool"
+                      lineageId="Package\Populate PRODUCT Dimension\Sort.Outputs[Sort Output].Columns[Discontinued]"
+                      name="Discontinued">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].Columns[Discontinued]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Sort.Outputs[Sort Output].Columns[CategoryID]"
+                      dataType="i4"
+                      lineageId="Package\Populate PRODUCT Dimension\Sort.Outputs[Sort Output].Columns[CategoryID]"
+                      name="CategoryID"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output].Columns[CategoryID]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Populate PRODUCT Dimension\Sort 1"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Sort 1"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Populate PRODUCT Dimension\Sort 1.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Populate PRODUCT Dimension\Sort 1.Inputs[Sort Input].Columns[CategoryName]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="CategoryName"
+                      lineageId="Package\Populate PRODUCT Dimension\Northwind Traders Product Categories.Outputs[OLE DB Source Output].Columns[CategoryName]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Populate PRODUCT Dimension\Sort 1.Inputs[Sort Input].Columns[CategoryID]"
+                      cachedDataType="i4"
+                      cachedName="CategoryID"
+                      lineageId="Package\Populate PRODUCT Dimension\Northwind Traders Product Categories.Outputs[OLE DB Source Output].Columns[CategoryID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Populate PRODUCT Dimension\Sort 1.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Sort 1.Outputs[Sort Output].Columns[CategoryName]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\Populate PRODUCT Dimension\Sort 1.Outputs[Sort Output].Columns[CategoryName]"
+                      name="CategoryName">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Populate PRODUCT Dimension\Northwind Traders Product Categories.Outputs[OLE DB Source Output].Columns[CategoryName]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Populate PRODUCT Dimension\Sort 1.Outputs[Sort Output].Columns[CategoryID]"
+                      dataType="i4"
+                      lineageId="Package\Populate PRODUCT Dimension\Sort 1.Outputs[Sort Output].Columns[CategoryID]"
+                      name="CategoryID"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Populate PRODUCT Dimension\Northwind Traders Product Categories.Outputs[OLE DB Source Output].Columns[CategoryID]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Populate PRODUCT Dimension.Paths[Merge Join Output]"
+              endId="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension.Inputs[OLE DB Destination Input]"
+              name="Merge Join Output"
+              startId="Package\Populate PRODUCT Dimension\Merge Join.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\Populate PRODUCT Dimension.Paths[OLE DB Source Output]"
+              endId="Package\Populate PRODUCT Dimension\Sort.Inputs[Sort Input]"
+              name="OLE DB Source Output"
+              startId="Package\Populate PRODUCT Dimension\Northwind Traders Products.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Populate PRODUCT Dimension.Paths[OLE DB Source Output1]"
+              endId="Package\Populate PRODUCT Dimension\Sort 1.Inputs[Sort Input]"
+              name="OLE DB Source Output"
+              startId="Package\Populate PRODUCT Dimension\Northwind Traders Product Categories.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Populate PRODUCT Dimension.Paths[Sort Output]"
+              endId="Package\Populate PRODUCT Dimension\Merge Join.Inputs[Merge Join Left Input]"
+              name="Sort Output"
+              startId="Package\Populate PRODUCT Dimension\Sort.Outputs[Sort Output]" />
+            <path
+              refId="Package\Populate PRODUCT Dimension.Paths[Sort Output1]"
+              endId="Package\Populate PRODUCT Dimension\Merge Join.Inputs[Merge Join Right Input]"
+              name="Sort Output"
+              startId="Package\Populate PRODUCT Dimension\Sort 1.Outputs[Sort Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Populate TIME DATE Dimension"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Populate TIME DATE Dimension"
+      DTS:DTSID="{E48ECC28-150F-4EEC-8A79-7B951B0C74E2}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Populate TIME DATE Dimension"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{79D6D7EE-07E3-412C-8A94-9680FEA6803C}"
+          SQLTask:SqlStatementSource="&#xA;---------------------------------------------------------------------------------------&#xA;--&#x9;&#x9;&#x9;&#x9;POPULATE DATE DIMENSIONS&#x9;&#x9;&#x9;&#x9;&#x9;--&#xA;---------------------------------------------------------------------------------------&#xA;DECLARE&#xA;@start_date_dt SMALLDATETIME, &#xA;@end_date_dt SMALLDATETIME,&#xA;@sql_string NVARCHAR(1024), &#xA;@DateKey INT, &#xA;@calendar_date_dt DATE, &#xA;@FullDateDesc VARCHAR(60), &#xA;@WeekDayName VARCHAR(10), &#xA;@DayNumber INT, &#xA;@calendar_day_of_year_num INT, &#xA;@WeekNumber INT, &#xA;@CalMonthNumber INT, &#xA;@CalMonthName VARCHAR(10), &#xA;@QuarterNumber INT, &#xA;@YearNumber INT&#xA;&#xA;SET @calendar_date_dt = '1996-07-04'&#xA;SET @end_date_dt = '1998-06-11'&#xA;&#xA;WHILE (@calendar_date_dt &lt;= @end_date_dt) &#xA;BEGIN&#xA;&#xA;&#x9;SELECT&#xA;&#x9;&#x9;@WeekDayName = DATENAME(WEEKDAY, @calendar_date_dt), &#xA;&#x9;&#x9;@DayNumber = DATEPART(DD, @calendar_date_dt), &#xA;&#x9;&#x9;@calendar_day_of_year_num = DATEPART(DY, @calendar_date_dt), &#xA;&#x9;&#x9;@WeekNumber = DATEPART(WK, @calendar_date_dt), &#xA;&#x9;&#x9;@CalMonthNumber = DATEPART(M, @calendar_date_dt), &#xA;&#x9;&#x9;@CalMonthName = DATENAME(MONTH, @calendar_date_dt), &#xA;&#x9;&#x9;@QuarterNumber = DATEPART(QQ, @calendar_date_dt), &#xA;&#x9;&#x9;@YearNumber = DATEPART(YYYY, @calendar_date_dt), &#xA;&#x9;&#x9;@DateKey = CAST(CAST(@YearNumber AS VARCHAR) + RIGHT('00' + CAST(@calendar_day_of_year_num AS VARCHAR), 3) AS INT),&#xA;&#x9;&#x9;@FullDateDesc = @CalMonthName + ' ' + CAST(@DayNumber AS VARCHAR) + ', ' + CAST(@YearNumber AS VARCHAR)&#xA;&#x9;&#xA;&#x9;SELECT @sql_string =&#xA;&#x9;&#x9;'INSERT INTO dbo.dw_dimtblTimeDate' +&#xA;&#x9;&#x9;' (' +&#xA;&#x9;&#x9;'DateKey, ' +&#xA;&#x9;&#x9;'CalendarDate, ' +&#xA;&#x9;&#x9;'FullDateDesc, ' +&#xA;&#x9;&#x9;'DayNumber,' +&#xA;&#x9;&#x9;'WeekDayName,' +&#xA;&#x9;&#x9;'WeekNumber,' +&#xA;&#x9;&#x9;'CalMonthNumber,' +&#xA;&#x9;&#x9;'CalMonthName,' +&#xA;&#x9;&#x9;'QuarterNumber, ' +&#xA;&#x9;&#x9;'YearNumber' +&#xA;&#x9;&#x9;') ' +&#xA;&#x9;&#x9;'VALUES ' +&#xA;&#x9;&#x9;'(' +&#xA;&#x9;&#x9;CHAR(39) + CAST(@DateKey AS VARCHAR) + CHAR(39) + ',' +&#xA;&#x9;&#x9;CHAR(39) + CAST(@calendar_date_dt AS VARCHAR) + CHAR(39) + ',' +&#xA;&#x9;&#x9;CHAR(39) + @FullDateDesc + CHAR(39) + ',' +&#xA;&#x9;&#x9;CAST(@DayNumber AS VARCHAR) + ',' +&#xA;&#x9;&#x9;CHAR(39) + @WeekDayName + CHAR(39) + ',' +&#xA;&#x9;&#x9;CAST(@WeekNumber AS VARCHAR) + ',' +&#xA;&#x9;&#x9;CAST(@CalMonthNumber AS VARCHAR) + ',' +&#xA;&#x9;&#x9;CHAR(39) + @CalMonthName + CHAR(39) + ',' +&#xA;&#x9;&#x9;CAST&#xA;&#x9;&#x9;(@QuarterNumber AS VARCHAR) + ',' +&#xA;&#x9;&#x9;CAST(@YearNumber AS VARCHAR) + ')'&#xA;&#xA;&#x9;EXEC sp_executesql @sql_string&#xA;&#xA;&#x9;SET @calendar_date_dt = DATEADD(day,1,@calendar_date_dt)&#xA;&#xA;&#xA;END&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{024E3FC5-220E-49EC-BCBD-B517EEB08BBF}"
+      DTS:From="Package\Populate PRODUCT Dimension"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Populate CUSTOMER Dimension" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{55C6209A-DE21-49AD-AD39-FAFEEC92B0C5}"
+      DTS:From="Package\Populate CUSTOMER Dimension"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Populate EMPLOYEE Dimension" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{81A484E7-DEEC-40EB-8E2F-590D9FC3AE32}"
+      DTS:From="Package\Populate EMPLOYEE Dimension"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Populate TIME DATE Dimension" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{D4DA65D7-B062-4489-B16E-627BB651D875}"
+      DTS:From="Package\Populate TIME DATE Dimension"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\Populate FACT (Sales) Table" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="229.6,41.6"
+          Id="Package\Populate CUSTOMER Dimension"
+          TopLeft="85.3333299424915,171.253334694333" />
+        <NodeLayout
+          Size="232.8,41.6"
+          Id="Package\Populate EMPLOYEE Dimension"
+          TopLeft="84.6666633023158,252.746667867873" />
+        <NodeLayout
+          Size="216,41.6"
+          Id="Package\Populate FACT (Sales) Table"
+          TopLeft="371.333318577874,339.040002694448" />
+        <NodeLayout
+          Size="229.6,41.6"
+          Id="Package\Populate PRODUCT Dimension"
+          TopLeft="82.6666633817886,91.5200007273356" />
+        <NodeLayout
+          Size="229.6,41.6"
+          Id="Package\Populate TIME DATE Dimension"
+          TopLeft="83.9999966621401,334.880002661387" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="198.79999666214,133.120000727336">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,38.1333339669974"
+              Start="0,0"
+              End="0,30.6333339669974">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.6333339669974" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="200.599996622404,212.853334694333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,39.89333317354"
+              Start="0,0"
+              End="0,32.39333317354">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.39333317354" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="199.933329982228,294.346667867873">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40.5333347935141"
+              Start="0,0"
+              End="0,33.0333347935141">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.0333347935141" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="313.59999666214,357.760002677917">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="57.7333219157336,0"
+              Start="0,0"
+              End="50.2333219157336,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="50.2333219157336,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Populate CUSTOMER Dimension">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="218.4,41.6"
+          Id="Package\Populate CUSTOMER Dimension\Northwind Traders Customers"
+          TopLeft="92,133.6" />
+        <NodeLayout
+          Size="272,41.6"
+          Id="Package\Populate CUSTOMER Dimension\Data Warehouse CUSTOMER Dimension"
+          TopLeft="497.6,139.2" />
+        <EdgeLayout
+          Id="Package\Populate CUSTOMER Dimension.Paths[OLE DB Source Output]"
+          TopLeft="310.4,157.2">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="187.2,0"
+              Start="0,0"
+              End="179.7,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="179.7,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Populate CUSTOMER Dimension\Data Warehouse CUSTOMER Dimension">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Populate CUSTOMER Dimension\Northwind Traders Customers">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Populate EMPLOYEE Dimension">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="220,41.6"
+          Id="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees"
+          TopLeft="12.0000031789143,48.3199993222555" />
+        <NodeLayout
+          Size="269.6,41.6"
+          Id="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension"
+          TopLeft="271.600008980433,290.933334545559" />
+        <NodeLayout
+          Size="154.4,41.6"
+          Id="Package\Populate EMPLOYEE Dimension\Derived Column"
+          TopLeft="194.666658931309,184.426668132358" />
+        <EdgeLayout
+          Id="Package\Populate EMPLOYEE Dimension.Paths[OLE DB Source Output]"
+          TopLeft="122.000003178914,89.9199993222555">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="149.866655752394,94.5066688101028"
+              Start="0,0"
+              End="149.866655752394,87.0066688101028">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,43.2533344050514" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,43.2533344050514"
+                    Point2="0,47.2533344050514"
+                    Point3="4,47.2533344050514" />
+                  <mssgle:LineSegment
+                    End="145.866655752394,47.2533344050514" />
+                  <mssgle:CubicBezierSegment
+                    Point1="145.866655752394,47.2533344050514"
+                    Point2="149.866655752394,47.2533344050514"
+                    Point3="149.866655752394,51.2533344050514" />
+                  <mssgle:LineSegment
+                    End="149.866655752394,87.0066688101028" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Populate EMPLOYEE Dimension.Paths[Derived Column Output]"
+          TopLeft="271.866658931309,226.026668132358">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="134.533350049124,64.9066664132012"
+              Start="0,0"
+              End="134.533350049124,57.4066664132012">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.4533332066006" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,28.4533332066006"
+                    Point2="0,32.4533332066006"
+                    Point3="4,32.4533332066006" />
+                  <mssgle:LineSegment
+                    End="130.533350049124,32.4533332066006" />
+                  <mssgle:CubicBezierSegment
+                    Point1="130.533350049124,32.4533332066006"
+                    Point2="134.533350049124,32.4533332066006"
+                    Point3="134.533350049124,36.4533332066006" />
+                  <mssgle:LineSegment
+                    End="134.533350049124,57.4066664132012" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Populate EMPLOYEE Dimension\Data Warehouse EMPLOYEE Dimension">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Populate EMPLOYEE Dimension\Northwind Traders Employees">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Populate PRODUCT Dimension">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="256.8,41.6"
+          Id="Package\Populate PRODUCT Dimension\Northwind Traders Product Categories"
+          TopLeft="37.9999984900157,124.800000991821" />
+        <NodeLayout
+          Size="99.2,41.6"
+          Id="Package\Populate PRODUCT Dimension\Sort"
+          TopLeft="318.666654003992,31.2000002479553" />
+        <NodeLayout
+          Size="209.6,41.6"
+          Id="Package\Populate PRODUCT Dimension\Northwind Traders Products"
+          TopLeft="36.6666652096643,33.9733336033292" />
+        <NodeLayout
+          Size="264,41.6"
+          Id="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension"
+          TopLeft="484.666647407744,232.266668512556" />
+        <NodeLayout
+          Size="108,41.6"
+          Id="Package\Populate PRODUCT Dimension\Sort 1"
+          TopLeft="322.666653845046,126.880001008352" />
+        <NodeLayout
+          Size="131.2,41.6"
+          Id="Package\Populate PRODUCT Dimension\Merge Join"
+          TopLeft="501.999980052313,76.9600006116231" />
+        <EdgeLayout
+          Id="Package\Populate PRODUCT Dimension.Paths[Sort Output1]"
+          TopLeft="430.666653845046,147.680001008352">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="71.3333262072673,-44.3200003967285"
+              Start="0,0"
+              End="63.8333262072673,-44.3200003967285">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="37.2148106975322,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="37.2148106975322,0"
+                    Point2="41.2148106975322,0"
+                    Point3="41.2148106975322,-4" />
+                  <mssgle:LineSegment
+                    End="41.2148106975322,-40.3200003967285" />
+                  <mssgle:CubicBezierSegment
+                    Point1="41.2148106975322,-40.3200003967285"
+                    Point2="41.2148106975322,-44.3200003967285"
+                    Point3="45.2148106975322,-44.3200003967285" />
+                  <mssgle:LineSegment
+                    End="63.8333262072673,-44.3200003967285" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Populate PRODUCT Dimension.Paths[Sort Output]"
+          TopLeft="417.866654003992,52.0000002479553">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="84.1333260483216,45.7600003636678"
+              Start="0,0"
+              End="76.6333260483216,45.7600003636678">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="38.0666630241608,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="38.0666630241608,0"
+                    Point2="42.0666630241608,0"
+                    Point3="42.0666630241608,4" />
+                  <mssgle:LineSegment
+                    End="42.0666630241608,41.7600003636678" />
+                  <mssgle:CubicBezierSegment
+                    Point1="42.0666630241608,41.7600003636678"
+                    Point2="42.0666630241608,45.7600003636678"
+                    Point3="46.0666630241608,45.7600003636678" />
+                  <mssgle:LineSegment
+                    End="76.6333260483216,45.7600003636678" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Populate PRODUCT Dimension.Paths[OLE DB Source Output1]"
+          TopLeft="294.799998490016,146.640001000087">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="27.8666553550301,0"
+              Start="0,0"
+              End="20.3666553550301,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="20.3666553550301,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Populate PRODUCT Dimension.Paths[OLE DB Source Output]"
+          TopLeft="246.266665209664,53.3866669256422">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="72.3999887943272,0"
+              Start="0,0"
+              End="64.8999887943272,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="64.8999887943272,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Populate PRODUCT Dimension.Paths[Merge Join Output]"
+          TopLeft="567.599980052313,118.560000611623">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="49.0666673554313,113.706667900933"
+              Start="0,0"
+              End="49.0666673554313,106.206667900933">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.8533339504665" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,52.8533339504665"
+                    Point2="0,56.8533339504665"
+                    Point3="4,56.8533339504665" />
+                  <mssgle:LineSegment
+                    End="45.0666673554313,56.8533339504665" />
+                  <mssgle:CubicBezierSegment
+                    Point1="45.0666673554313,56.8533339504665"
+                    Point2="49.0666673554313,56.8533339504665"
+                    Point3="49.0666673554313,60.8533339504665" />
+                  <mssgle:LineSegment
+                    End="49.0666673554313,106.206667900933" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Populate PRODUCT Dimension\Northwind Traders Product Categories">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Populate PRODUCT Dimension\Northwind Traders Products">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Populate PRODUCT Dimension\Data Warehouse PRODUCT Dimension">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
